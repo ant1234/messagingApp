@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="css/ionic.css">
+        <link rel="stylesheet" type="text/css" href="css/ionicons.min.css">
+        <title>Settings </title>
+    </head>
+    <body>
+        <div class="bar bar-header bar-royal">
+            <h1 class="title">Settings</h1>
+        </div>
+        <div class="content">
+            <br><br>
+            <div style="text-align:center">
+                <img src="" id="profilepic" style="border-radius:50px;"/>
+                <p id="tagline"></p>
+            </div>
+            <div class="list list-inset">
+                <a href="change_password.html" class="item item-icon-right">
+                    Change Password
+                    <i class="icon ion-ios-arrow-right"></i>
+                </a>
+                <a href="#" class="item" id="logout">
+                    Logout
+                </a>
+            </div>
+        </div>
+        <div class="bar bar-footer">
+            <div class="tabs tabs-icon-top">
+              <a class="tab-item" href="index.html">
+                <i class="icon ion-ios-chatboxes-outline"></i>
+                Chats
+              </a>
+              <a class="tab-item" href="contacts.html">
+                <i class="icon ion-ios-people-outline"></i>
+                Contacts
+              </a>
+              <a class="tab-item" href="notifications.html">
+                <i class="icon ion-ios-bell-outline"></i>
+                Notifications
+              </a>
+              <a class="tab-item" style="color:#fc3158;"  href="settings.html">
+                <i class="icon ion-ios-cog"></i>
+                Settings
+              </a>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/md5.js"></script>
+        <script type="text/javascript" src="js/auth.js"></script>
+    </body>
+</html>

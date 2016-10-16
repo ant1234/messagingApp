@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="css/ionic.css">
+        <link rel="stylesheet" type="text/css" href="css/ionicons.min.css">
+        <title>Search</title>
+    </head>
+    <body>
+        <div class="loading" style="display:hidden;">Loading&#8230;</div>
+        <div class="bar bar-header bar-royal">
+            <a href="#" onclick="javascript:location.reload();" class="button button-clear"><i class="icon ion-ios-refresh-empty"></i></a>
+            <h1 class="title">Contacts</h1>
+            <a class="button button-clear" href="find_friends.html">Find Friends</a>
+        </div>
+        <div class="content">
+            <div class="list" id="list_friends">
+            </div>
+        </div>
+        <div class="bar bar-footer">
+            <div class="tabs tabs-icon-top">
+              <a class="tab-item" href="index.html">
+                <i class="icon ion-ios-chatboxes-outline"></i>
+                Chats
+              </a>
+              <a class="tab-item" style="color:#fc3158;" href="contacts.html">
+                <i class="icon ion-ios-people"></i>
+                Contacts
+              </a>
+              <a class="tab-item" href="notifications.html">
+                <i class="icon ion-ios-bell-outline"></i>
+                Notifications
+              </a>
+              <a class="tab-item" href="settings.html">
+                <i class="icon ion-ios-cog-outline"></i>
+                Settings
+              </a>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            var username=localStorage.username;
+            var url="http://localhost:8888/messagingSystem/message_system/friend_request.php?sender="+username+"&friend_list=";
+                $.getJSON(url,function(data){
+                    $(".loading").hide();
+                    if(data.friend_list!=null){
+                        $.each(data.friend_list,function(i,data){
+                            if(data.username!=localStorage.username){
+                                $("#list_friends").append("<a href='chat.html?sender="+data.username+"' class='item'><h2>"+data.fullname+"</h2><p>"+data.tagline+"</p></a>");
+
+                            }
+                        });
+                    }
+                    else{
+                        $("#list_friends").html("<br><br><br><br><p style='text-align:center;color:#6d6d6d'><i class='icon ion-ios-information-outline' style='font-size:40px;color:#FB6D88;'></i><br/>No Contacts Found<br><br><a href='find_friends.html' style='color:#8d8d8d'>Find New friends</a></p>");
+                    }
+                });
+        });
+        </script>
+    </body>
+</html>

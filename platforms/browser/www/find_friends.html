@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="css/ionic.css">
+        <link rel="stylesheet" type="text/css" href="css/ionicons.min.css">
+        <title>Search</title>
+    </head>
+    <body>
+        <div class="loading" style="display:hidden;">Loading&#8230;</div>
+        <div class="bar bar-header bar-royal">
+            <a href="#" onclick="javascipt:history.go(-1);" class="button button-clear">
+                <i class="ion-ios-arrow-left"></i> Back</a>
+            <h1 class="title">Find Friends</h1>
+            <a href="#" onclick="javascript:location.reload();" class="button button-clear"><i class="icon ion-ios-refresh-empty"></i></a>
+        </div>
+        <div class="content">
+            <div class="item item-input-inset">
+                <label class="item-input-wrapper">
+                  <input type="text" id="username" placeholder="Search by Email Address">
+                </label>
+                <button class="button button-outline button-small button-stable" id="find_friends">
+                  Search
+                </button>
+            </div>
+            <div class="list" id="list_friends">
+
+            </div>
+        </div>
+        <div class="bar bar-footer">
+            <div class="tabs tabs-icon-top">
+              <a class="tab-item" href="index.html">
+                <i class="icon ion-ios-chatboxes-outline"></i>
+                Chats
+              </a>
+              <a class="tab-item" style="color:#fc3158;" href="contacts.html">
+                <i class="icon ion-ios-people"></i>
+                Contacts
+              </a>
+              <a class="tab-item" href="notifications.html">
+                <i class="icon ion-ios-bell-outline"></i>
+                Notifications
+              </a>
+              <a class="tab-item" href="settings.html">
+                <i class="icon ion-ios-cog-outline"></i>
+                Settings
+              </a>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $(".loading").hide();
+            $("#find_friends").click(function(){
+                $(".loading").show();
+                $("#list_friends").html(" ");
+                var username=$("#username").val();
+                var url="http://localhost/messagingSystem/message_system/friend_request.php?username="+username+"&find_friends=";
+                $.getJSON(url,function(data){
+                    $(".loading").hide();
+                    if(data.find_friend!=null){
+                    $.each(data.find_friend,function(i,data){
+                        if(data.username!=localStorage.username){
+                            $("#list_friends").append("<div class='item'><i class='send_request icon ion-ios-personadd-outline round' id='"+data.email+"'></i><h2>"+data.fullname+"</h2><p>"+data.tagline+"</p></div>");
+                        }
+                        else{
+                            $("#list_friends").append("<div class='item'><h2>"+data.fullname+"</h2><p>"+data.tagline+"</p></div>");
+                        }
+                        });
+                    }
+                    else{
+                        $("#list_friends").html("<br><br><p style='text-align:center;color:#6d6d6d'><i class='icon ion-ios-information-outline' style='font-size:40px;color:#FB6D88;'></i><br/>Not Data Found</p>");
+                    }
+                });
+            });
+            $(document).on('click','.send_request', function () {
+                var receiver = $(this).attr("id");
+                var sender = localStorage.username;
+                console.log(sender+""+receiver);
+                var dataString="sender="+sender+"&receiver="+receiver+"&send_request=";
+                $.ajax({
+                    type: "post",
+                    url: "http://localhost:8888/messagingSystem/message_system/friend_request.php",
+                    crossDomain: true,
+                    cache: false,
+                    data:dataString,
+                    success: function(data){
+                        if(data=="success"){
+                            window.plugins.toast.showLongBottom('Request has been sent !!');
+                        }
+                        else if(data=="exist"){
+                            window.plugins.toast.showLongBottom('You have already sent request!!');
+                        }
+                        else{
+                           window.plugins.toast.showLongBottom('Something went wrong!!');
+                        }
+                    }
+                });
+            });
+        });
+        </script>
+    </body>
+</html>

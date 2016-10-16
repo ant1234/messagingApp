@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="css/ionic.css">
+        <link rel="stylesheet" type="text/css" href="css/ionicons.min.css">
+        <title>Message List</title>
+            <script type="text/javascript">
+    var url = window.location.pathname;
+    var filename = url.substring(url.lastIndexOf('/') + 1);
+    if (localStorage.login == "true" && filename == 'login.html') {
+        window.location.href = "index.html";
+    } else if (localStorage.login == null) {
+        window.location.href = "login.html";
+    } else if (localStorage.login == "false" && filename != 'login.html') {
+        window.location.href = "login.html";
+    }
+    </script>
+    </head>
+    <body>
+        <div class="loading" style="display:hidden;">Loading&#8230;</div>
+        <div class="bar bar-header bar-royal">
+            <h1 class="title">Messages</h1>
+            <a href="#" onclick="javascript:location.reload();" class="button button-clear"><i class="icon ion-ios-refresh-empty"></i></a>
+        </div>
+        <div class="content">
+            <div class="list" id="message_list">
+                
+            </div>
+        </div>
+        <div class="bar bar-footer">
+            <div class="tabs tabs-icon-top tabs-white">
+              <a class="tab-item" style="color:#fc3158;" href="index.html">
+                <i class="icon ion-ios-chatboxes"></i>
+                Chats
+              </a>
+              <a class="tab-item" href="contacts.html">
+                <i class="icon ion-ios-people-outline"></i>
+                Contacts
+              </a>
+              <a class="tab-item" href="notifications.html">
+                <i class="icon ion-ios-bell-outline"></i>
+                Notifications
+              </a>
+              <a class="tab-item" href="settings.html">
+                <i class="icon ion-ios-cog-outline"></i>
+                Settings
+              </a>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/message_list.js"></script>
+    </body>
+</html>

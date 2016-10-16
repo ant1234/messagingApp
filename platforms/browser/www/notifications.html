@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="css/ionic.css">
+        <link rel="stylesheet" type="text/css" href="css/ionicons.min.css">
+        <title>Search</title>
+    </head>
+    <body>
+        <div class="loading" style="display:hidden;">Loading&#8230;</div>
+        <div class="bar bar-header bar-royal">
+            <a href="#" onclick="javascript:location.reload();" class="button button-clear"><i class="icon ion-ios-refresh-empty"></i></a>
+            <h1 class="title">Notifications</h1>
+            
+        </div>
+        <div class="content">
+            <div class="list clickable" id="list_friends">
+            </div>
+        </div>
+        <div class="bar bar-footer">
+            <div class="tabs tabs-icon-top">
+              <a class="tab-item" href="index.html">
+                <i class="icon ion-ios-chatboxes-outline"></i>
+                Chats
+              </a>
+              <a class="tab-item" href="contacts.html">
+                <i class="icon ion-ios-people-outline"></i>
+                Contacts
+              </a>
+              <a class="tab-item" style="color:#fc3158;" href="notifications.html">
+                <i class="icon ion-ios-bell"></i>
+                Notifications
+              </a>
+              <a class="tab-item" href="settings.html">
+                <i class="icon ion-ios-cog-outline"></i>
+                Settings
+              </a>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript">
+            var username=localStorage.username;
+            var url="http://localhost:8888/messagingSystem/message_system/friend_request.php?username="+username+"&my_request=";
+            $.getJSON(url,function(data){
+                $(".loading").hide();
+                if(data.requests!=null){
+                    $.each(data.requests,function(i,data){
+                        $("#list_friends").append("<div class='item'><i class='icon ion-ios-checkmark-empty round accept_request' id='"+data.username+"'></i><h2>"+data.fullname+"</h2><p>"+data.tagline+"</p></a>");
+                    });
+                }
+                else{
+                    $("#list_friends").html("<br><br><p style='text-align:center;color:#6d6d6d'><i class='icon ion-ios-information-outline' style='font-size:40px;color:#FB6D88;'></i><br/>No New Notifications or Requests</p>");
+                }
+
+            });
+            $(document).on('click','.accept_request', function () {
+                $(".loading").show();
+                console.log("clicked");
+                var sender = $(this).attr("id");
+                var receiver = localStorage.username;
+                console.log(sender+""+receiver);
+                var dataString="sender="+sender+"&receiver="+receiver+"&accept_request=";
+                $.ajax({
+                    type: "post",
+                    url: "http://localhost:8888/messagingSystem/message_system/friend_request.php",
+                    crossDomain: true,
+                    cache: false,
+                    data:dataString,
+                    success: function(data){
+                        $(".loading").hide();
+                        if(data=="success"){
+                            console.log("sent success fully");
+                            window.location.href="notifications.html";
+                        }
+                        else{
+                            console.log("wrong");
+                        }
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

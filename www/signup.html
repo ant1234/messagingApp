@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+    <link rel="stylesheet" type="text/css" href="css/ionic.css" />
+    <title>Create an Account</title>
+</head>
+<body>
+    <div class="content">
+        <div class="list list-inset">
+        <div style="text-align:center;">
+                <img src="img/logo.png" style="width:300px;"/>
+        </div>
+        <label class="item item-input">
+            <span class="input-label">Fullname</span>
+            <input type="text" placeholder="Your Fullname" id="fullname">
+        </label>
+        <label class="item item-input">
+            <span class="input-label">Email</span>
+            <input type="email" placeholder="email@domain.com" id="email">
+        </label>
+        <label class="item item-input">
+            <span class="input-label">Password</span>
+            <input type="password" placeholder="password" id="password">
+        </label>
+        <label class="item-input" style="padding:5px;">
+            <button class="button button-block button-positive" id="signup">Create an Account</button>
+        </label>
+        <div style="text-align:center">
+            <a href="forget-password.html" class="button-clear button-royal">Forget Password ?</a> or <a href="login.html" class="button-clear button-royal">Login</a>
+        </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/auth.js"></script>
+</body>
+
+</html>
